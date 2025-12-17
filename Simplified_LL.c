@@ -16,6 +16,7 @@ struct Node *createNode(int ele);
 struct Node *insert_beg(struct Node *first);
 struct Node *delete_beg(struct Node *first);
 struct Node *delete_end(struct Node *first);
+struct Node *delete_given_element(struct Node *first);
 void display();
 
 // Allocate node
@@ -108,47 +109,83 @@ void display()
     printf("NULL\n");
 }
 
+struct Node *delete_given_element(struct Node *first)
+{
+    if (first == NULL)
+    {
+        printf("Linked list is empty!!\n");
+        return NULL;
+    }
+
+    int ele;
+    printf("Enter the element to delete: ");
+    scanf("%d", &ele);
+
+    temp = first;
+    while (temp != NULL)
+    {
+        if (temp->data == ele)
+        {
+            printf("The deleted element is %d\n", temp->data);
+            current->link = temp->link;
+            free(temp);
+            return first;
+        }
+        current = temp;
+        temp = temp->link;
+    }
+    printf("Element not found in the list!!\n");
+    return first;
+}
+
 // Main
-int main() {
+int main()
+{
     int choice;
 
-    while (1) {
+    while (1)
+    {
 
         printf("\n--- Linked List Operations ---\n");
         printf("1. Insert at Beginning\n");
         printf("2. Delete from Beginning\n");
         printf("3. Delete from End\n");
         printf("4. Display List\n");
-        printf("5. Exit\n");
+        printf("5. Delete given Element\n");
+        printf("6. Exit\n");
         printf("----------------------------\n");
         printf("Enter your choice: ");
-        
 
         scanf("%d", &choice);
 
-        switch (choice) {
-            case 1:
-                first = insert_beg(first);
-                break; 
+        switch (choice)
+        {
+        case 1:
+            first = insert_beg(first);
+            break;
 
-            case 2:
-                first = delete_beg(first);
-                break;
+        case 2:
+            first = delete_beg(first);
+            break;
 
-            case 3:
-                first = delete_end(first);
-                break;
+        case 3:
+            first = delete_end(first);
+            break;
 
-            case 4:
-                display();
-                break;
+        case 4:
+            display();
+            break;
 
-            case 5:
-                printf("Exiting program...\n");
-                exit(0);
+        case 5:
+            first = delete_given_element(first);
+            break;
 
-            default:
-                printf("Invalid choice! Please try again.\n");
+        case 6:
+            printf("Exiting program...\n");
+            exit(0);
+
+        default:
+            printf("Invalid choice! Please try again.\n");
         }
     }
 
