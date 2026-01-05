@@ -11,7 +11,17 @@ void swap(int *v1, int *v2)
 
 int main()
 {
-    int arr[5] = {5, 3, 6, 8, 1};
+    int arr_size;
+    printf("Enter the number of elements in the array: \n");
+    scanf("%d", &arr_size);
+
+    int arr[arr_size];
+    for (int i = 0; i < arr_size; i++)
+    {
+        printf("Enter element %d: ", i);
+        scanf("%d", &arr[i]);
+    }
+    
     int n = sizeof(arr) / sizeof(arr[0]);
 
     for (int i = 0; i < n - 1; i++)
