@@ -1,43 +1,28 @@
-#include <gtk/gtk.h>
-
-static void
-print_hello (GtkWidget *widget,
-             gpointer   data)
+#include <stdio.h>
+void main()
 {
-  g_print ("Hello World\n");
-}
-
-static void
-activate (GtkApplication *app,
-          gpointer        user_data)
-{
-  GtkWidget *window;
-  GtkWidget *button;
-
-  window = gtk_application_window_new (app);
-  gtk_window_set_title (GTK_WINDOW (window), "Hello");
-  gtk_window_set_default_size (GTK_WINDOW (window), 200, 200);
-
-  button = gtk_button_new_with_label ("Hello World");
-  gtk_widget_set_halign(button, GTK_ALIGN_CENTER);
-  gtk_widget_set_valign(button, GTK_ALIGN_CENTER);
-  g_signal_connect (button, "clicked", G_CALLBACK (print_hello), NULL);
-  gtk_window_set_child (GTK_WINDOW (window), button);
-
-  gtk_window_present (GTK_WINDOW (window));
-}
-
-int
-main (int    argc,
-      char **argv)
-{
-  GtkApplication *app;
-  int status;
-
-  app = gtk_application_new ("org.gtk.example", G_APPLICATION_DEFAULT_FLAGS);
-  g_signal_connect (app, "activate", G_CALLBACK (activate), NULL);
-  status = g_application_run (G_APPLICATION (app), argc, argv);
-  g_object_unref (app);
-
-  return status;
+  int a[10], n, i, j, temp;
+  printf("Enterthenumberofelements\n");
+  scanf("%d", &n);
+  printf("Enterthevalues\n");
+  for (i = 0; i < n; i++)
+    scanf("%d", &a[i]);
+  printf("Theoriginalelementsare\n");
+  for (i = 0; i < n; i++)
+    printf("%d\t", a[i]);
+  for (i = 1; i < n; i++)
+  {
+    for (j = 0; j < n - i; j++)
+    {
+      if (a[j] > a[j + 1])
+      {
+        temp = a[j];
+        a[j] = a[j + 1];
+        a[j + 1] = temp;
+      }
+    }
+  }
+  printf("\nThesortedelementsare\n");
+  for (i = 0; i < n; i++)
+    printf("%d\t", a[i]);
 }
