@@ -1,6 +1,5 @@
 //Program to implement simple calculator
 #include <stdio.h>
-
 int main()
 {
     int num1, num2;
@@ -30,7 +29,7 @@ int main()
         printf("%d / %d = %d", num1, num2, num1 / num2);
         break;
     case '%':
-        printf("%d %% %d = %d", num1, num2, num1 / num2);
+        printf("%d %% %d = %d", num1, num2, num1 % num2);
         break;
     default:
         printf("Invalid operator");
