@@ -1,46 +1,34 @@
 #include <stdio.h>
-#define INF 999
-
-void dij(int n, int v, int cost[10][10], int dist[10]) {
-    int i, u, count = 2, w, flag[10] = {0}, min;
-
-    for (i = 1; i <= n; i++) dist[i] = cost[v][i];
-    flag[v] = 1;
-
-    while (count <= n) {
-        min = INF;
-        for (w = 1; w <= n; w++)
-            if (dist[w] < min && !flag[w]) min = dist[u = w];
-
-        flag[u] = 1;
-        count++;
-
-        for (w = 1; w <= n; w++)
-            if (!flag[w] && (dist[u] + cost[u][w] < dist[w]))
-                dist[w] = dist[u] + cost[u][w];
+int n, v, i, j, c[10][10], d[10], f[10], u, m, cnt = 2;
+void dij()
+{
+    for (i = 1; i <= n; i++)
+        d[i] = c[v][i];
+    f[v] = 1;
+    while (cnt++ <= n)
+    {
+        for (i = 1, m = 999; i <= n; i++)
+            if (!f[i] && d[i] < m)
+                m = d[u = i];
+        f[u] = 1;
+        for (i = 1; i <= n; i++)
+            if (!f[i] && d[u] + c[u][i] < d[i])
+                d[i] = d[u] + c[u][i];
     }
 }
-
-int main() {
-    int n, v, i, j, cost[10][10], dist[10];
-
-    printf("\n Enter the number of nodes:");
+int main()
+{
     scanf("%d", &n);
-    printf("\n Enter the cost matrix:\n");
-    for (i = 1; i <= n; i++) {
-        for (j = 1; j <= n; j++) {
-            scanf("%d", &cost[i][j]);
-            if (cost[i][j] == 0) cost[i][j] = INF;
-        }
-    }
-
-    printf("\n Enter the source matrix:");
-    scanf("%d", &v);
-    dij(n, v, cost, dist);
-
-    printf("\n Shortest path:\n");
     for (i = 1; i <= n; i++)
-        if (i != v) printf("%d->%d,cost=%d\n", v, i, dist[i]);
-
-    return 0;
+        for (j = 1; j <= n; j++)
+        {
+            scanf("%d", &c[i][j]);
+            if (!c[i][j])
+                c[i][j] = 999;
+        }
+    scanf("%d", &v);
+    dij();
+    for (i = 1; i <= n; i++)
+        if (i != v)
+            printf("%d->%d=%d\n", v, i, d[i]);
 }
