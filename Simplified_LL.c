@@ -9,7 +9,7 @@ typedef struct Node
 }Node;
 
 // Global pointers
-struct Node *first = NULL, *temp, *current;
+Node *first = NULL, *temp, *current;
 
 // Function prototypes
 Node *createNode(int ele);
@@ -77,7 +77,7 @@ int main()
 // Allocate node
 Node *createNode(int ele)
 {
-    struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
+    Node *newNode = (Node *)malloc(sizeof(Node));
     if (newNode == NULL)
     {
         printf("Memory Allocation failed!!\n");
@@ -89,7 +89,7 @@ Node *createNode(int ele)
 }
 
 // Insert at beginning
-Node *insert_beg(struct Node *first)
+Node *insert_beg(Node *first)
 {
     int data;
     printf("Please Enter a Data: ");
@@ -105,7 +105,7 @@ Node *insert_beg(struct Node *first)
     return first;
 }
 
-Node *delete_beg(struct Node *first)
+Node *delete_beg(Node *first)
 {
     if (first == NULL)
     {
@@ -120,7 +120,7 @@ Node *delete_beg(struct Node *first)
     return first;
 }
 
-Node *delete_end(struct Node *first)
+Node *delete_end(Node *first)
 {
     if (first == NULL)
     {
@@ -164,7 +164,7 @@ void display()
     printf("NULL\n");
 }
 
-Node *delete_given_element(struct Node *first)
+Node *delete_given_element(Node *first)
 {
     if (first == NULL)
     {
@@ -177,6 +177,7 @@ Node *delete_given_element(struct Node *first)
     scanf("%d", &ele);
 
     temp = first;
+    current = NULL;
     while (temp != NULL)
     {
         if (temp->data == ele)

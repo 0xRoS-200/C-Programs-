@@ -2,7 +2,7 @@
 #include <process.h>
 #define MAX 5
 
-int q[MAX], f = 0, r = -1, i, ch, item;
+int q[MAX], f = 0, r = -1, i, ch;
 
 void main() {
     while(1) {
@@ -13,7 +13,7 @@ void main() {
             case 1:
                 if (r == MAX - 1) printf("Queue Overflow");
                 else {
-                    printf("Enter item: ");
+                    printf("Enter item: "); 
                     scanf("%d", &q[++r]);
                 }
                 break;
@@ -23,7 +23,7 @@ void main() {
                     printf("Deleted: %d", q[f++]);
                     if (f > r) f = 0, r = -1;
                 }
-                break;
+                break; 
             case 3:
                 if (f > r) printf("Queue Empty");
                 else {
