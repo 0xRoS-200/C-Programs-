@@ -1,35 +1,61 @@
 #include <stdio.h>
-int i, j, a, b, u, v, n, ne = 1, min, cost[9][9], p[9], mc = 0;
-int f(int i)
+#define INF 999
+
+int n, cost[9][9], parent[9];
+
+int find(int i)
 {
-    while (p[i])
-        i = p[i];
+    while (parent[i])
+        i = parent[i];
     return i;
 }
+
 int main()
 {
+    int i, j, u, v, a, b;
+    int edges = 1, min, minCost = 0;
+
     printf("Enter n: ");
     scanf("%d", &n);
+
+    // read cost matrix
     for (i = 1; i <= n; i++)
         for (j = 1; j <= n; j++)
         {
             scanf("%d", &cost[i][j]);
-            if (!cost[i][j])
-                cost[i][j] = 999;
+            if (cost[i][j] == 0)
+                cost[i][j] = INF;
         }
-    while (ne < n)
+
+    // Kruskal
+    while (edges < n)
     {
-        for (i = 1, min = 999; i <= n; i++)
+        min = INF;
+
+        // find minimum edge
+        for (i = 1; i <= n; i++)
             for (j = 1; j <= n; j++)
                 if (cost[i][j] < min)
-                    min = cost[a = u = i][b = v = j];
-        if ((u = f(u)) != (v = f(v)))
+                {
+                    min = cost[i][j];
+                    a = u = i;
+                    b = v = j;
+                }
+
+        u = find(u);
+        v = find(v);
+
+        // if no cycle
+        if (u != v)
         {
-            printf("Edge %d:(%d,%d)=%d\n", ne++, a, b, min);
-            mc += min;
-            p[v] = u;
+            printf("Edge %d:(%d,%d)=%d\n", edges++, a, b, min);
+            minCost += min;
+            parent[v] = u;
         }
-        cost[a][b] = cost[b][a] = 999;
+
+        cost[a][b] = cost[b][a] = INF;
     }
-    printf("Min cost: %d", mc);
+
+    printf("Min cost: %d", minCost);
+    return 0;
 }
