@@ -1,65 +1,55 @@
 #include <stdio.h>
 #define INF 999
 
-int n, cost[10][10], dist[10], visited[10];
-
-void dijkstra(int src)
+void dij(int n, int v, int cost[10][10], int dist[10])
 {
-    int i, u, min;
+    int i, u, count = 2, w, flag[10] = {0}, min;
 
-    // Step 1: initialize
     for (i = 1; i <= n; i++)
-    {
-        dist[i] = cost[src][i];
-        visited[i] = 0;
-    }
+        dist[i] = cost[v][i];
+    flag[v] = 1;
 
-    dist[src] = 0;
-    visited[src] = 1;
-
-    // Step 2: repeat n-1 times
-    for (int count = 1; count < n; count++)
+    while (count <= n)
     {
         min = INF;
+        for (w = 1; w <= n; w++)
+            if (dist[w] < min && !flag[w])
+                min = dist[u = w];
 
-        // pick nearest unvisited node
-        for (i = 1; i <= n; i++)
-            if (!visited[i] && dist[i] < min)
-            {
-                min = dist[i];
-                u = i;
-            }
+        flag[u] = 1;
+        count++;
 
-        visited[u] = 1;
-
-        // relax neighbors
-        for (i = 1; i <= n; i++)
-            if (!visited[i] && dist[u] + cost[u][i] < dist[i])
-                dist[i] = dist[u] + cost[u][i];
+        for (w = 1; w <= n; w++)
+            if (!flag[w] && (dist[u] + cost[u][w] < dist[w]))
+                dist[w] = dist[u] + cost[u][w];
     }
 }
 
 int main()
 {
-    int i, j, src;
+    int n, v, i, j, cost[10][10], dist[10];
 
+    printf("\n Enter the number of nodes:");
     scanf("%d", &n);
-
+    printf("\n Enter the cost matrix:\n");
     for (i = 1; i <= n; i++)
+    {
         for (j = 1; j <= n; j++)
         {
             scanf("%d", &cost[i][j]);
             if (cost[i][j] == 0)
                 cost[i][j] = INF;
         }
+    }
 
-    scanf("%d", &src);
+    printf("\n Enter the source vertex:");
+    scanf("%d", &v);
+    dij(n, v, cost, dist);
 
-    dijkstra(src);
-
+    printf("\n Shortest path:\n");
     for (i = 1; i <= n; i++)
-        if (i != src)
-            printf("%d->%d=%d\n", src, i, dist[i]);
+        if (i != v)
+            printf("%d->%d,cost=%d\n", v, i, dist[i]);
 
     return 0;
 }
