@@ -17,6 +17,6 @@ int main()
     // strcmp
     printf("Are the strings exactly the same? %s\n", (strcmp(str1, str2) == 0) ? "Yes" : "No");
     // strchr
-    printf("The elemnts after occurence of h in KhushiTopper! is %s\n", strchr(str1, 'h'));
+    printf("The elemnts after occurence of h is %s\n", strchr(str1, 'h'));
     return 0;
 }
